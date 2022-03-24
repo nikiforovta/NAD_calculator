@@ -1,0 +1,11 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    {% for entry in history %}
+        <article class="question">
+            <h2>{{ entry.operation_type }} {{ entry.operands }} - <a href={{ entry.id }}>result</a> - <a href="remove/{{ entry.id }}">remove</a></h2>
+        </article>
+    {% endfor %}
+
+{% endblock %}

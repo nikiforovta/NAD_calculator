@@ -1,0 +1,8 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h3><a href="/api/history/">Back to history</a></h3>
+    <p>{{ entry.operation_type|linebreaksbr }}</p>
+    <p>{{ entry.operands|linebreaksbr }}</p>
+    <p>{{ entry.result|linebreaksbr }}</p>
+{% endblock %}
