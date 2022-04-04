@@ -1,0 +1,31 @@
+[Unit]
+Description=Calculator daemon
+After=network.target
+StartLimitIntervalSec=350
+StartLimitBurst=10
+
+[Service]
+Type=simple
+DynamicUser=true
+StateDirectory=RSP_calculator/data
+CacheDirectory=RSP_calculator
+WorkingDirectory=/var/lib/RSP_calculator
+ExecStartPre=+/usr/bin/chown -R $USER \
+             /var/cache/RSP_calculator/cert.pem \
+             /var/cache/RSP_calculator/key.pem \
+             /var/cache/RSP_calculator/cacert.pem
+ExecStart=/var/lib/RSP_calculator/venv/bin/gunicorn \
+          --certfile=/var/cache/RSP_calculator/cert.pem \
+          --keyfile=/var/cache/RSP_calculator/key.pem \
+          --ca-cert=/var/cache/RSP_calculator/cacert.pem \
+          --bind 0.0.0.0:???? \
+          --access-logfile - \
+          RSP_calculator.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+Restart=on-failure
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target

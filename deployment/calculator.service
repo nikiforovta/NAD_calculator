@@ -1,0 +1,18 @@
+[Unit]
+Description=Calculator daemon
+After=network.target
+
+[Service]
+Type=simple
+DynamicUser=true
+StateDirectory=RSP_calculator/data
+WorkingDirectory=/var/lib/RSP_calculator
+ExecStart=/var/lib/RSP_calculator/venv/bin/gunicorn \
+          --bind 0.0.0.0:???? \
+          --access-logfile - \
+          RSP_calculator.wsgi
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target
