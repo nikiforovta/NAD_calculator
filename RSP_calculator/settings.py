@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-726n@0qel7ny1)pdwl!kojpbjb--94beel5!xe5vl$!5%hr6)+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['nad-calculator.duckdns.org']
+ALLOWED_HOSTS = ['nad-calculator.duckdns.org', 'localhost']
 
 # Application definition
 
