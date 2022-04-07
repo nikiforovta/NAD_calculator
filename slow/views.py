@@ -25,6 +25,7 @@ def slow_operation(request, operation):
     r = Entry(id=uuid.uuid4(), user=request.user, operation_type=operation, operands=[0.0], result=[0.0])
     if len(args_list) != 0:
         args = list(map(float, ast.literal_eval(args_list[0])))
+        r.operands = args
     else:
         return HttpResponseBadRequest("Not enough arguments '?args=[]'")
     if operation == 'sqrt':
@@ -39,7 +40,7 @@ def slow_operation(request, operation):
 
 def get_request(operation_id):
     while True:
-        request = Entry.objects.filter(id=operation_id).first()
+        request = Entry.objects.get(id=operation_id)
         if request:
             return request
 
@@ -56,7 +57,7 @@ def slow_fact(operation_id, args):
     request = get_request(operation_id)
     try:
         request.result = list(map(lambda x: math.factorial(x), args))
-    except ValueError:
-        request.operation_type = "Fail"  # "An attempt to calculate the factorial for an unsuitable operand has been stopped"
+    except ValueError or OverflowError:
+        request.operation_type = "Fail"
     finally:
         request.save()

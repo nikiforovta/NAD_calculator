@@ -1,9 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h3><a href="../../fast">Fast operation</a></h3>
-    <h3><a href="../../slow">Slow operation</a></h3>
+    <h3><a href="/api/fast">Fast operation</a></h3>
+    <h3><a href="/api/slow">Slow operation</a></h3>
     <p>Your operation - {{ result.operation_type|linebreaksbr }}</p>
-    <p>{{ result.operands|linebreaksbr }}</p>
+    <p>Arguments - {{ result.operands|linebreaksbr }}</p>
     <p>Result - {{ result.result|linebreaksbr }}</p>
 {% endblock %}

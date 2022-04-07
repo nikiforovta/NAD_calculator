@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['nad-calculator.duckdns.org', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
+    'calculator.apps.CalculatorConfig',
     'fast.apps.FastConfig',
     'slow.apps.SlowConfig',
     'history.apps.HistoryConfig',
@@ -141,4 +142,48 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'filters': {
+        'special': {
+            '()': 'project.logging.SpecialFilter',
+            'foo': 'bar',
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'filters': ['require_debug_true'],
+            'class': 'logging.FileHandler',
+            'formatter': 'simple',
+            'filename': '/var/log/calculator.log'
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+        },
+        'RSP_calculator.custom': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'filters': ['special']
+        }
+    }
 }
