@@ -19,7 +19,7 @@ from django.urls import path, include
 from .urls_yasg import urlpatterns as doc_urls
 
 urlpatterns = [
-    path('', include('django.contrib.auth.urls')),
+    path('', include('calculator.urls')),
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
 

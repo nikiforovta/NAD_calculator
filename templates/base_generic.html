@@ -9,11 +9,10 @@
     <ul class="sidebar-nav">
         {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
-            {#            Source of registration templates https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django/Authentication#}
-            <li><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+            <li><a href="/auth/logout?next={{ request.path }}">Logout</a></li>
             <li><a href="/api/history">History</a></li>
         {% else %}
-            <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+            <li><a href="/auth/login?next={{ request.path }}">Login</a></li>
         {% endif %}
     </ul>
 {% endblock %}

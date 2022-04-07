@@ -2,9 +2,9 @@
 
 {% block content %}
     <h3><a href="/api/fast/">Fast operation</a></h3>
-    <h3><a href="/api/fast/slow/">Slow operation</a></h3>
-    <p>Your operation: {{ result.operation_type|linebreaksbr }}</p>
-    <p>{{ result.operands|linebreaksbr }}</p>
+    <h3><a href="/api/slow/">Slow operation</a></h3>
+    <p>Your operation - {{ result.operation_type|linebreaksbr }}</p>
+    <p>Arguments - {{ result.operands|linebreaksbr }}</p>
     <p>Accepted for processing</p>
     <p><a href="/api/history/result/{{ result.id }}">Result</a></p>
 {% endblock %}
