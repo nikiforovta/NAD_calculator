@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-726n@0qel7ny1)pdwl!kojpbjb--94beel5!xe5vl$!5%hr6)+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['nad-calculator.duckdns.org', 'localhost']
+ALLOWED_HOSTS = []
 
 # Application definition
 

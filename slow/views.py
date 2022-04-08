@@ -48,8 +48,13 @@ def get_request(operation_id):
 def slow_sqrt(operation_id, args):
     sleep(len(args) * 2)
     request = get_request(operation_id)
-    request.result = list(map(lambda x: x ** 0.5, args))
-    request.save()
+    try:
+        request.result = list(map(lambda x: x ** 0.5, args))
+        request.save()
+    except TypeError:
+        request.message = 'An attempt to calculate the square root for an unsuitable operand has been stopped'
+        request.result = request.operands
+        request.save()
 
 
 def slow_fact(operation_id, args):
@@ -57,7 +62,11 @@ def slow_fact(operation_id, args):
     request = get_request(operation_id)
     try:
         request.result = list(map(lambda x: math.factorial(x), args))
-    except ValueError or OverflowError:
-        request.operation_type = "Fail"
+    except ValueError:
+        request.message = 'An attempt to calculate the factorial for an unsuitable operand has been stopped'
+        request.result = request.operands
+    except OverflowError:
+        request.message = 'Value is too big :('
+        request.result = request.operands
     finally:
         request.save()

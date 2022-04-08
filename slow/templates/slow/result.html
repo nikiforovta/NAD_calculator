@@ -6,4 +6,7 @@
     <p>Your operation - {{ result.operation_type|linebreaksbr }}</p>
     <p>Arguments - {{ result.operands|linebreaksbr }}</p>
     <p>Result - {{ result.result|linebreaksbr }}</p>
+    {% if result.message != '' %}
+        <p>Error: {{ result.message|linebreaksbr }}</p>
+    {% endif %}
 {% endblock %}
