@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
 from .urls_yasg import urlpatterns as doc_urls
 
@@ -22,7 +23,11 @@ urlpatterns = [
     path('', include('calculator.urls')),
     path('admin/', admin.site.urls),
     path('auth/', include('rest_framework.urls')),
+    path('custom_auth/', include('custom_auth.urls')),
 
+    path('api/token/', TokenObtainPairView.as_view()),
+    path('api/token/refresh', TokenRefreshView.as_view()),
+    path('api/token/verify/', TokenVerifyView.as_view()),
     path('api/history/', include('history.urls')),
     path('api/slow/', include('slow.urls')),
     path('api/fast/', include('fast.urls')),
