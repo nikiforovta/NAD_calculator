@@ -13,6 +13,7 @@
             <li><a href="/api/history">History</a></li>
         {% else %}
             <li><a href="/auth/login?next={{ request.path }}">Login</a></li>
+            <li><a href="/custom_auth/register?next={{ request.path }}">Register</a></li>
         {% endif %}
     </ul>
 {% endblock %}
