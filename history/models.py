@@ -22,6 +22,7 @@ class Entry(models.Model):
     operation_type = models.CharField(max_length=4, choices=OPERATION_TYPES)
     operands = ArrayField(base_field=models.FloatField())
     result = ArrayField(base_field=models.FloatField())
+    message = models.CharField(max_length=100, blank=True, default='')
 
     def __str__(self):
         return f'User {self.user} calculating {self.operation_type} of {self.operands} (id: {self.id})\tResult: {self.result}'

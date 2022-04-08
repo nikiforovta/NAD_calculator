@@ -9,14 +9,16 @@
     <ul class="sidebar-nav">
         {% if user.is_authenticated %}
             <li>User: {{ user.get_username }}</li>
-            <li><a href="/auth/logout?next={{ request.path }}">Logout</a></li>
+            <li><a href="/auth/logout?next=/">Logout</a></li>
             <li><a href="/api/history">History</a></li>
+            <li><a href="/">Calculate</a></li>
         {% else %}
             <li><a href="/auth/login?next={{ request.path }}">Login</a></li>
             <li><a href="/custom_auth/register?next={{ request.path }}">Register</a></li>
         {% endif %}
     </ul>
 {% endblock %}
+<br>
 {% block content %}{% endblock %}
 </body>
 </html>

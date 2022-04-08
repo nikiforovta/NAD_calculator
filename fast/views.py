@@ -3,6 +3,7 @@ import operator
 import uuid
 from functools import reduce
 
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.template import loader
 from rest_framework.decorators import api_view
@@ -16,7 +17,7 @@ def index(request):
 
 
 @api_view(['GET'])
-# @login_required(login_url='/auth/login')
+@login_required(login_url='/auth/login')
 def fast_operation(request, operation):
     template = loader.get_template('fast/operation.html')
     args_list = request.GET.getlist('args')
@@ -26,18 +27,20 @@ def fast_operation(request, operation):
         r.operands = args
     else:
         return HttpResponseBadRequest("Not enough arguments '?args=[]'")
-    if operation == 'sum':
-        r.result = [reduce(operator.add, args)]
-    elif operation == 'sub':
-        r.result = [reduce(operator.sub, args)]
-    elif operation == 'mul':
-        r.result = [reduce(operator.mul, args)]
-    elif operation == 'div':
-        try:
-            r.result = [reduce(operator.truediv, args)]
-        except ZeroDivisionError:
-            return HttpResponseBadRequest("An attempt to divide by zero has been stopped")
-    else:
-        return HttpResponseBadRequest("Incorrect operation type")
-    r.save()
+    try:
+        if operation == 'sum':
+            r.result = [reduce(operator.add, args)]
+        elif operation == 'sub':
+            r.result = [reduce(operator.sub, args)]
+        elif operation == 'mul':
+            r.result = [reduce(operator.mul, args)]
+        elif operation == 'div':
+            try:
+                r.result = [reduce(operator.truediv, args)]
+            except ZeroDivisionError:
+                return HttpResponseBadRequest("An attempt to divide by zero has been stopped")
+        else:
+            return HttpResponseBadRequest("Incorrect operation type")
+    except OverflowError:
+        return HttpResponseBadRequest("Overflow")
     return HttpResponse(template.render({'result': r}, request))
