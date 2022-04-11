@@ -40,7 +40,7 @@ def get_result(request, operation_id):
     template = loader.get_template('slow/result.html')
     result = Entry.objects.get(id=operation_id)
     if result.result == [0.0]:
-        result.result = "Not ready yet"
+        result.result = "Not ready yet, try again later"
     return HttpResponse(template.render({"result": result}, request))
 
 

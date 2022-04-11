@@ -135,7 +135,7 @@ STATIC_ROOT = (os.path.join(BASE_DIR, 'static'),)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Redirect to fast operations' page after login (Default redirects to /accounts/profile/)
+# Redirect to main page after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
@@ -151,46 +151,20 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT',),
 }
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'formatters': {
-#         'verbose': {
-#             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
-#             'style': '{',
-#         },
-#         'simple': {
-#             'format': '{levelname} {message}',
-#             'style': '{',
-#         },
-#     },
-#     'filters': {
-#         'special': {
-#             '()': 'project.logging.SpecialFilter',
-#             'foo': 'bar',
-#         },
-#         'require_debug_true': {
-#             '()': 'django.utils.log.RequireDebugTrue',
-#         },
-#     },
-#     'handlers': {
-#         'file': {
-#             'level': 'INFO',
-#             'filters': ['require_debug_true'],
-#             'class': 'logging.FileHandler',
-#             'formatter': 'simple',
-#             'filename': '/var/log/calculator.log'
-#         }
-#     },
-#     'loggers': {
-#         'django': {
-#             'handlers': ['file'],
-#             'propagate': True,
-#         },
-#         'RSP_calculator.custom': {
-#             'handlers': ['file'],
-#             'level': 'INFO',
-#             'filters': ['special']
-#         }
-#     }
-# }
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/INFO.log'),
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'propagate': True,
+        }
+    }
+}
