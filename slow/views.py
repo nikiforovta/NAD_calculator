@@ -62,11 +62,12 @@ def slow_fact(operation_id, args):
     request = get_request(operation_id)
     try:
         request.result = list(map(lambda x: math.factorial(x), args))
+        request.save()
     except ValueError:
         request.message = 'An attempt to calculate the factorial for an unsuitable operand has been stopped'
         request.result = request.operands
+        request.save()
     except OverflowError:
         request.message = 'Value is too big :('
         request.result = request.operands
-    finally:
         request.save()

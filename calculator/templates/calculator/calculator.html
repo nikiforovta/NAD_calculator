@@ -1,10 +1,29 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+    <details>
+        <summary>How to use?</summary>
+        Choose operation type, print operands line by line and get results.
+        <ul>
+            <li>Common restriction: Avoid passing too large values.</li>
+            <br>
+            <li>Addition: Sequential addition of operands.</li>
+            <li>Subtraction:Sequential subtraction of operands.</li>
+            <li>Multiplication: Sequential multiplication of operands.</li>
+            <li>Division: Sequential division of operands. Restriction: Don't pass zero as a divisor.</li>
+            <li>Factorial: Calculated for each operand. Restriction: Do not pass negative or fractional values.</li>
+            <li>Square root: Calculated for each operand. Restriction: Don't pass negative values.</li>
+        </ul>
+    </details>
+    <br>
     <form action="/" method="post">
         {% csrf_token %}
-        {{ form.as_table }}
+        {{ form.operation_type.label }}
+        {{ form.operation_type }}
+        {{ form.arguments.label }}
+
+        {{ form.arguments }}
         <br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Results">
     </form>
 {% endblock %}
